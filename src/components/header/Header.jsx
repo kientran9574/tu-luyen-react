@@ -32,7 +32,7 @@ const Headers = () => {
     {
       key: "logout",
       label: (
-        <button className="px-2  cursor-pointer" onClick={() => handleLogout()}>
+        <button className="cursor-pointer" onClick={() => handleLogout()}>
           Đăng xuất
         </button>
       ),
