@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import NotFound from "./NotFound";
 const RoleBasicRoute = (props) => {
-  const isAdminRoute = window.location.pathname === "/admin";
+  const isAdminRoute = window.location.pathname.startsWith("/admin");
   const user = useSelector((state) => state.account.user);
   const userRole = user.role;
   if (isAdminRoute && userRole === "ADMIN") {

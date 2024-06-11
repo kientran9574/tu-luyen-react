@@ -7,18 +7,28 @@ import {
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Button, Dropdown, Layout, Menu, Space, message, theme } from "antd";
+import {
+  Avatar,
+  Button,
+  Dropdown,
+  Layout,
+  Menu,
+  Space,
+  message,
+  theme,
+} from "antd";
 import { postLogout } from "../../../service/api";
 import { doLogoutLogin } from "../../../redux/account/accountSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 const { Header, Sider, Content } = Layout;
 const Headers = () => {
   const isAuthenticated = useSelector((state) => state.account.isAuthenticated);
   const user = useSelector((state) => state.account.user);
+  const url = `http://localhost:8082/images/avatar/${user?.avatar}`;
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = async () => {
     console.log("checkkkkk");
     const res = await postLogout();
@@ -37,6 +47,10 @@ const Headers = () => {
     {
       key: "account",
       label: <label>Quản lý tài khoản</label>,
+    },
+    {
+      key: "home",
+      label: <Link to={"/"}>Trang chủ</Link>,
     },
     {
       key: "logout",
@@ -59,7 +73,7 @@ const Headers = () => {
             {
               key: "1",
               icon: <UserOutlined />,
-              label: "Dashboard",
+              label: <Link to="/admin">Dashboard</Link>,
             },
             {
               key: "2",
@@ -68,7 +82,7 @@ const Headers = () => {
               children: [
                 {
                   key: "crud",
-                  label: <label>CRUD</label>,
+                  label: <Link to="/admin/user">CRUD</Link>,
                 },
                 {
                   key: "filter",
@@ -115,7 +129,10 @@ const Headers = () => {
                 {!isAuthenticated ? (
                   <span onClick={() => navigate("/login")}>Tài khoản</span>
                 ) : (
-                  <p>Welcom {user?.fullName}</p>
+                  <>
+                    <Avatar size="large" src={url} />
+                    {user?.fullName}
+                  </>
                 )}
                 <DownOutlined />
               </Space>
@@ -131,7 +148,8 @@ const Headers = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          {/* sau này viết logic cho thằng này user là không đc thầy tài nguyên của admin */}
+          <Outlet></Outlet>
         </Content>
       </Layout>
     </Layout>

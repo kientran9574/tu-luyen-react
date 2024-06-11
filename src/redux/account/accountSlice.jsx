@@ -25,8 +25,8 @@ export const accountSlice = createSlice({
       state.user = action.payload.user;
     },
     doLogoutLogin: (state) => {
-      state.isAuthenticated = false;
       localStorage.removeItem("access_token");
+      state.isAuthenticated = false;
       state.user = {
         email: "",
         phone: "",

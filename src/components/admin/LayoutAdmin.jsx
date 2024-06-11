@@ -1,12 +1,14 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Headers from "./header/Headers";
+import HeadersAdmin from "./header/HeadersAdmin";
+import FooterAdmin from "./footer/FooterAdmin";
 
 const LayoutAdmin = () => {
   return (
     <div>
-      <Headers></Headers>
-      <Outlet></Outlet>
+      <HeadersAdmin></HeadersAdmin>
+      {/* <Outlet></Outlet> */}
+      <FooterAdmin></FooterAdmin>
     </div>
   );
 };
